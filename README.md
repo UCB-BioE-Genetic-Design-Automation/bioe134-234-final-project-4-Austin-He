@@ -1,4 +1,4 @@
-# BioE 134 Final Project Submission
+BioE 134 Final Project Submission
 # Project Overview
 This project provides a set of bioinformatics utilities and integrations:
 
