@@ -1,0 +1,30 @@
+# test_model_generation.py
+import pytest
+import torch
+from model_inference import generate_with_protein_model
+
+@pytest.mark.skipif(not torch.cuda.is_available(), reason="Requires CUDA to run in a timely manner.")
+def test_generate_with_protein_model_basic():
+    prompt = "Explain how proteins fold in the cell."
+    response = generate_with_protein_model(prompt, max_length=50)
+    assert isinstance(response, str), "Expected a string response"
+    assert len(response.strip()) > 0, "Expected a non-empty response"
+    # We can optionally check if it mentions 'proteins' or 'fold' just to be sure it responded somewhat relevantly
+    # but since this is a large language model and can vary, we won't rely on it.
+    # Still, a basic content check can be:
+    # assert "protein" in response.lower() or "fold" in response.lower(), "Response does not seem related to proteins"
+
+def test_generate_with_protein_model_empty_prompt():
+    # Test the model with an empty prompt
+    prompt = ""
+    response = generate_with_protein_model(prompt, max_length=50)
+    assert isinstance(response, str), "Expected a string response for empty prompt"
+    # The model might return something generic or even empty. Let's just ensure it doesn't crash.
+    # If you want stricter checks, add them here.
+
+def test_generate_with_protein_model_short_prompt():
+    # Test with a very short prompt
+    prompt = "Protein?"
+    response = generate_with_protein_model(prompt, max_length=50)
+    assert isinstance(response, str), "Expected a string response"
+    assert len(response) > 0, "Expected a non-empty response for short prompt"
