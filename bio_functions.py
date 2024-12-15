@@ -61,6 +61,63 @@ def translate(sequence):
         protein += codon_table.get(codon, '_')  # Using '_' for unknown or stop codons
     return protein
 
+
+import requests
+
+def query_uniprot(uniprot_id):
+    url = f"https://rest.uniprot.org/uniprotkb/{uniprot_id}"
+    headers = {"Accept": "application/json"}
+    r = requests.get(url, headers=headers)
+    r.raise_for_status()
+    return r.json()
+
+def query_alphafold(uniprot_id):
+    url = f"https://alphafold.ebi.ac.uk/api/prediction/{uniprot_id}"
+    r = requests.get(url)
+    r.raise_for_status()
+    return r.json()
+
+def query_interpro_by_uniprot(uniprot_id):
+    url = f"https://www.ebi.ac.uk/interpro/api/protein/uniprot/{uniprot_id}/"
+    r = requests.get(url)
+    r.raise_for_status()
+    return r.json()
+import requests
+
+import requests
+
+def query_go_annotations_uniprot(uniprot_id):
+    base_url = "https://www.ebi.ac.uk/QuickGO/services/annotation/search"
+    params = {
+        "geneProductId": f"UniProtKB:{uniprot_id}",
+        "fields": "goId,evidenceCode,geneProductId",  # keep fields minimal for clarity
+        "limit": "50"
+    }
+    r = requests.get(base_url, params=params)
+    r.raise_for_status()
+    return r.json()
+
+def get_go_term_details(go_id):
+    url = f"https://www.ebi.ac.uk/QuickGO/services/ontology/go/terms/{go_id}"
+    r = requests.get(url)
+    r.raise_for_status()
+    data = r.json()
+    results = data.get("results", [])
+    if results:
+        # The name field is typically here
+        return results[0].get("name", None)
+    return None
+
+def enrich_go_annotations_with_names(annotations):
+    for ann in annotations.get("results", []):
+        go_id = ann.get("goId")
+        if go_id:
+            go_name = get_go_term_details(go_id)
+            ann["goName"] = go_name
+    return annotations
+
+    
+
 if __name__ == "__main__":
     # Example DNA sequence for demonstration
     dna_example = "ATGGCCATTGTAATGGGCCGCTGAAAGGGTGCCCGATAG"
@@ -75,3 +132,25 @@ if __name__ == "__main__":
         print(f"Translation of '{dna_example}': {translation_result}")
     except Exception as e:
         print(f"Error: {str(e)}")
+
+    test_id = "P69905"  # Human Hemoglobin subunit alpha, should return data reliably
+    
+    print("Querying UniProt...")
+    uniprot_data = query_uniprot(test_id)
+    print("UniProt data:", uniprot_data, "\n")
+
+    print("Querying AlphaFold...")
+    alphafold_data = query_alphafold(test_id)
+    print("AlphaFold data:", alphafold_data, "\n")
+
+    print("Querying InterPro...")
+    interpro_data = query_interpro_by_uniprot(test_id)
+    print("InterPro data:", interpro_data, "\n")
+
+    print("Querying GO annotations...")
+    annotations = query_go_annotations_uniprot(test_id)
+    print("GO annotations data:", annotations, "\n")
+    enriched_annotations = enrich_go_annotations_with_names(annotations)
+    print("Enriched GO annotations with GO names:", enriched_annotations)
+
+
