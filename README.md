@@ -116,4 +116,4 @@ InterPro: https://www.ebi.ac.uk/interpro/
 
 QuickGO: https://www.ebi.ac.uk/QuickGO/
 
-Hugging Face Model: basil2115/llama2-qlora-proteins (llama2 I finetuned on protein sequences using qlora)
+Hugging Face Model: https://huggingface.co/basil2115/llama2-qlora-proteins?library=transformers (llama2 I finetuned on protein sequences using qlora)
