@@ -117,7 +117,35 @@ def enrich_go_annotations_with_names(annotations):
             ann["goName"] = go_name
     return annotations
 
-    
+from transformers import AutoModelForCausalLM, AutoTokenizer
+import torch
+
+def generate_with_protein_model(prompt: str, max_length: int = 128):
+    # Load tokenizer and model
+    tokenizer = AutoTokenizer.from_pretrained("basil2115/llama2-qlora-proteins")
+    model = AutoModelForCausalLM.from_pretrained("basil2115/llama2-qlora-proteins")
+
+    # Move model to GPU if available for faster inference
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model.to(device)
+
+    # Encode the prompt
+    inputs = tokenizer(prompt, return_tensors="pt").to(device)
+
+    # Generate output
+    with torch.no_grad():
+        output_tokens = model.generate(
+            **inputs,
+            max_length=max_length,
+            do_sample=True,   # use sampling for generation
+            top_k=50,
+            top_p=0.95,
+            temperature=0.7
+        )
+
+    # Decode output tokens
+    response = tokenizer.decode(output_tokens[0], skip_special_tokens=True)
+    return response    
 
 if __name__ == "__main__":
     # Example DNA sequence for demonstration
@@ -153,6 +181,9 @@ if __name__ == "__main__":
     print("GO annotations data:", annotations, "\n")
     enriched_annotations = enrich_go_annotations_with_names(annotations)
     print("Enriched GO annotations with GO names:", enriched_annotations)
+
+    prompt = "Tell me about Human Hemoglobin subunit alpha"
+    generate_with_protein_model(prompt)
 
     
 
