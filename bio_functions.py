@@ -65,6 +65,7 @@ def translate(sequence):
 
 
 
+#error handling tends to exist serverside for these functions
 
 def query_uniprot(uniprot_id):
     url = f"https://rest.uniprot.org/uniprotkb/{uniprot_id}"
