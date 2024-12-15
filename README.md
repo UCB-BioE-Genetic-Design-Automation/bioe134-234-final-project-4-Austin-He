@@ -94,6 +94,7 @@ pip install -r requirements.txt
 
 Import and Use Functions:
 from bio_functions import query_uniprot, query_alphafold, query_interpro_by_uniprot, query_go_annotations_uniprot, enrich_go_annotations_with_names
+
 from bio_functions import generate_with_protein_model
 
 # Conclusion
