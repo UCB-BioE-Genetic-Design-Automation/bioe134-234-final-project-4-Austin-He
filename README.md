@@ -1,6 +1,6 @@
-BioE 134 Final Project Submission
-Project Overview
-This project provides a set of bioinformatics utilities and integrations:
+#BioE 134 Final Project Submission
+#Project Overview
+#This project provides a set of bioinformatics utilities and integrations:
 
 Queries:
 query_uniprot: Fetches UniProtKB entry data for a given UniProt ID.
@@ -12,8 +12,11 @@ enrich_go_annotations_with_names: Enhances GO annotation results by retrieving G
 Protein Language Model Integration:
 generate_with_protein_model: Uses a fine-tuned large language model ("basil2115/llama2-qlora-proteins") to generate text related to protein science queries.
 
-Scope of Work
+#Scope of Work
 For the BioE 134 final project, the core functionality developed includes the reverse_complement and translate functions. These form the foundation for sequence analysis tasks. Additional functionalities were implemented to interface with popular bioinformatics services (UniProt, AlphaFold, InterPro, QuickGO) and to use a custom fine-tuned language model for protein-related queries.
+
+
+#Core functions:
 
 Bioinformatics Database Queries
 
@@ -69,14 +72,14 @@ Example:
 response = generate_with_protein_model("Tell me about Human Hemoglobin subunit alpha")
 print(response)
 
-Error Handling:
+#Error Handling:
 Query Functions
 Rely on requests.raise_for_status() to raise requests.HTTPError for invalid queries (e.g., invalid UniProt IDs).
 
 Language Model Generation
 If the model or tokenizer cannot be loaded, OSError or environment-related errors may be raised.
 
-Testing:
+#Testing:
 Testing is done using pytest. A suite of tests covers:
 
 Query Functions:
@@ -85,15 +88,12 @@ Tests querying known UniProt IDs and handling invalid ones, ensuring results par
 Model Generation:
 Tests prompt-response generation with both standard and empty prompts (if environment supports model loading).
 
-Usage Instructions
+#Usage Instructions:
+
 Install Requirements:
-
 pip install -r requirements.txt
-Import and Use Functions:
 
-python
-Copy code
-from bio_functions import reverse_complement, translate
+Import and Use Functions:
 from bio_functions import query_uniprot, query_alphafold, query_interpro_by_uniprot, query_go_annotations_uniprot, enrich_go_annotations_with_names
 from bio_functions import generate_with_protein_model
 
