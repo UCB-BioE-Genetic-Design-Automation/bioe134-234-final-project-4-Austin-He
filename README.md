@@ -3,13 +3,19 @@ BioE 134 Final Project Submission
 This project provides a set of bioinformatics utilities and integrations:
 
 Queries:
+
 query_uniprot: Fetches UniProtKB entry data for a given UniProt ID.
+
 query_alphafold: Retrieves predicted protein structure information from the AlphaFold API for a given UniProt ID.
+
 query_interpro_by_uniprot: Obtains protein domain and family annotations from InterPro for a given UniProt ID.
+
 query_go_annotations_uniprot: Fetches Gene Ontology (GO) annotations for a given UniProt ID.
+
 enrich_go_annotations_with_names: Enhances GO annotation results by retrieving GO term names via QuickGO.
 
 Protein Language Model Integration:
+
 generate_with_protein_model: Uses a fine-tuned large language model ("basil2115/llama2-qlora-proteins") to generate text related to protein science queries.
 
 # Scope of Work
