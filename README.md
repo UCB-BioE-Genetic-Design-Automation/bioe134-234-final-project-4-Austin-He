@@ -1,4 +1,6 @@
 
+The finetuned model is available here: https://huggingface.co/basil2115/llama2-qlora-proteins
+
 # BioE 134 Final Project Submission
 
 ## Project Overview
