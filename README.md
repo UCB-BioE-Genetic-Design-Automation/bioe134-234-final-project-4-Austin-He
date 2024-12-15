@@ -1,111 +1,115 @@
+BioE 134 Final Project Submission
+Project Overview
+This project provides a set of bioinformatics utilities and integrations:
 
-The finetuned model is available here: https://huggingface.co/basil2115/llama2-qlora-proteins
+Queries:
+query_uniprot: Fetches UniProtKB entry data for a given UniProt ID.
+query_alphafold: Retrieves predicted protein structure information from the AlphaFold API for a given UniProt ID.
+query_interpro_by_uniprot: Obtains protein domain and family annotations from InterPro for a given UniProt ID.
+query_go_annotations_uniprot: Fetches Gene Ontology (GO) annotations for a given UniProt ID.
+enrich_go_annotations_with_names: Enhances GO annotation results by retrieving GO term names via QuickGO.
 
-# BioE 134 Final Project Submission
+Protein Language Model Integration:
+generate_with_protein_model: Uses a fine-tuned large language model ("basil2115/llama2-qlora-proteins") to generate text related to protein science queries.
 
-## Project Overview
+Scope of Work
+For the BioE 134 final project, the core functionality developed includes the reverse_complement and translate functions. These form the foundation for sequence analysis tasks. Additional functionalities were implemented to interface with popular bioinformatics services (UniProt, AlphaFold, InterPro, QuickGO) and to use a custom fine-tuned language model for protein-related queries.
 
-This project provides two core bioinformatics utilities: 
+Bioinformatics Database Queries
 
-1. **Reverse Complement (revcomp)**: Calculates the reverse complement of a DNA sequence.
-2. **Translate**: Translates a DNA sequence into a protein sequence according to the standard genetic code.
+Query Functions:
+query_uniprot(uniprot_id):
+Queries the UniProt REST API for detailed protein information by UniProt ID.
 
-These functions are implemented in **Python** and are part of the broader bioinformatics toolset aimed at automating genetic sequence analysis tasks.
+Example:
+data = query_uniprot("P69905")
+print(data)
 
----
+query_alphafold(uniprot_id):
+Retrieves AlphaFold predicted structure information for a given UniProt ID.
 
-## Scope of Work
+Example:
+structure = query_alphafold("P69905")
+print(structure)
 
-As part of the final project for BioE 134, I developed two functions that are foundational for sequence analysis:
+query_interpro_by_uniprot(uniprot_id):
+Fetches protein domain and family annotations from InterPro based on a UniProt ID.
 
-1. **Reverse Complement**: This function returns the reverse complement of a DNA sequence, which is an essential task in many genetic analysis pipelines.
-   
-2. **Translate**: This function translates a DNA sequence into a corresponding protein sequence by converting each codon into its corresponding amino acid, based on the standard genetic code.
+Example:
+interpro_data = query_interpro_by_uniprot("P69905")
+print(interpro_data)
 
-Both functions include input validation and error handling to ensure proper use. The reverse complement function raises an error for sequences containing invalid characters, while the translate function raises an error for sequences not divisible by three, as well as sequences containing invalid characters.
+query_go_annotations_uniprot(uniprot_id):
+Retrieves GO annotations (molecular function, biological process, cellular component) associated with a given UniProt ID from QuickGO.
 
----
+Example:
+go_data = query_go_annotations_uniprot("P69905")
+print(go_data)
 
-## Function Descriptions
+enrich_go_annotations_with_names(annotations):
+Enhances GO annotations by fetching the human-readable GO term names using the QuickGO ontology service.
 
-### 1. Reverse Complement (`reverse_complement`)
+Example:
+enriched_go = enrich_go_annotations_with_names(go_data)
+print(enriched_go)
 
-- **Description**: This function takes a DNA sequence and returns its reverse complement. Only valid nucleotides (A, T, C, G) are allowed. The function raises a `ValueError` if invalid characters are found.
-- **Input**: A string representing the DNA sequence.
-- **Output**: A string representing the reverse complement of the input DNA sequence.
+Protein Language Model Generation
+generate_with_protein_model(prompt, max_length=128)
+Description:
+Uses a fine-tuned language model ("basil2115/llama2-qlora-proteins") to generate text related to protein science. This can be helpful for summarizing information, explaining biological concepts, or generating hypotheses.
 
-**Example**:
-```python
-reverse_complement("ATGC")
-# Returns: "GCAT"
-```
+Input:
 
-### 2. Translate (`translate`)
+prompt: A string containing the prompt or question.
+max_length: Maximum length of the generated output tokens.
+Output:
+A string containing the generated response from the model.
 
-- **Description**: This function translates a DNA sequence into a corresponding protein sequence. The input sequence must be divisible by 3. If it contains invalid characters or is not a multiple of three, the function raises a `ValueError`. Stop codons are represented as underscores (`_`).
-- **Input**: A string representing the DNA sequence.
-- **Output**: A string representing the translated protein sequence.
+Example:
+response = generate_with_protein_model("Tell me about Human Hemoglobin subunit alpha")
+print(response)
 
-**Example**:
-```python
-translate("ATGGCC")
-# Returns: "MA"
-```
+Error Handling:
+Query Functions
+Rely on requests.raise_for_status() to raise requests.HTTPError for invalid queries (e.g., invalid UniProt IDs).
 
----
+Language Model Generation
+If the model or tokenizer cannot be loaded, OSError or environment-related errors may be raised.
 
-## Error Handling
+Testing:
+Testing is done using pytest. A suite of tests covers:
 
-### Reverse Complement
-- Raises `ValueError` if invalid characters (anything other than A, T, C, G) are present in the DNA sequence.
+Query Functions:
+Tests querying known UniProt IDs and handling invalid ones, ensuring results parse as expected.
 
-### Translate
-- Raises `ValueError` if the sequence contains invalid characters or if the sequence length is not a multiple of three.
+Model Generation:
+Tests prompt-response generation with both standard and empty prompts (if environment supports model loading).
 
----
+Usage Instructions
+Install Requirements:
 
-## Testing
-
-Both functions have been tested with standard, edge, and invalid input cases. A comprehensive suite of tests has been implemented using **pytest**.
-
-- **Test File**: `tests/test_bio_functions.py`
-
-The tests include:
-- Valid sequences
-- Sequences containing invalid characters
-- Sequences with lengths not divisible by three (for the translate function)
-- Palindromic sequences (for reverse complement)
-- Lowercase input handling
-
----
-
-## Usage Instructions
-
-Clone the repository and install the required dependencies listed in `requirements.txt`. The functions can be imported from the `bio_functions.py` module.
-
-**Example**:
-
-```bash
 pip install -r requirements.txt
-```
+Import and Use Functions:
 
-Once installed, you can use the functions as follows:
-
-```python
+python
+Copy code
 from bio_functions import reverse_complement, translate
+from bio_functions import query_uniprot, query_alphafold, query_interpro_by_uniprot, query_go_annotations_uniprot, enrich_go_annotations_with_names
+from bio_functions import generate_with_protein_model
 
-# Example DNA sequence
-dna_sequence = "ATGC"
+# Querying databases
+uni_data = query_uniprot("P69905")
+print(uni_data)
 
-# Reverse complement
-print(reverse_complement(dna_sequence))
+# Model generation
+response = generate_with_protein_model("Explain the fuctions of alpha hemoglobin y")
+print(response)
+Conclusion
+This project delivers a set of tools for DNA sequence manipulation (reverse_complement, translate), integrates with major bioinformatics resources (UniProt, AlphaFold, InterPro, GO), and utilizes a fine-tuned protein-related language model for advanced text generation. All functionalities are tested and documented, ensuring a robust and versatile toolkit for bioinformatics analysis pipelines.
 
-# Translate
-print(translate("ATGGCC"))
-```
-
----
-
-## Conclusion
-
-These two functions provide foundational operations for working with DNA sequences in bioinformatics pipelines. They have been tested and documented, ensuring proper error handling and robust functionality.
+Additional Resources
+UniProt: https://www.uniprot.org
+AlphaFold: https://alphafold.ebi.ac.uk
+InterPro: https://www.ebi.ac.uk/interpro/
+QuickGO: https://www.ebi.ac.uk/QuickGO/
+Hugging Face Model: basil2115/llama2-qlora-proteins (llama2 I finetuned on protein sequences using qlora)
