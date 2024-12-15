@@ -1,3 +1,5 @@
+import requests
+
 def reverse_complement(sequence):
     """
     Calculates the reverse complement of a DNA sequence.
@@ -62,7 +64,7 @@ def translate(sequence):
     return protein
 
 
-import requests
+
 
 def query_uniprot(uniprot_id):
     url = f"https://rest.uniprot.org/uniprotkb/{uniprot_id}"
@@ -82,8 +84,6 @@ def query_interpro_by_uniprot(uniprot_id):
     r = requests.get(url)
     r.raise_for_status()
     return r.json()
-import requests
-
 import requests
 
 def query_go_annotations_uniprot(uniprot_id):
