@@ -133,7 +133,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(f"Error: {str(e)}")
 
-    test_id = "P69905"  # Human Hemoglobin subunit alpha, should return data reliably
+    test_id = "P69905"  # example: Human Hemoglobin subunit alpha
     
     print("Querying UniProt...")
     uniprot_data = query_uniprot(test_id)
@@ -146,11 +146,13 @@ if __name__ == "__main__":
     print("Querying InterPro...")
     interpro_data = query_interpro_by_uniprot(test_id)
     print("InterPro data:", interpro_data, "\n")
-
+    
     print("Querying GO annotations...")
     annotations = query_go_annotations_uniprot(test_id)
     print("GO annotations data:", annotations, "\n")
     enriched_annotations = enrich_go_annotations_with_names(annotations)
     print("Enriched GO annotations with GO names:", enriched_annotations)
+
+    
 
 
