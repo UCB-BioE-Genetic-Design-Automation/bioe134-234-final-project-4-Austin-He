@@ -17,7 +17,7 @@ For the BioE 134 final project, the core functionality developed includes the re
 
 # Core functions:
 
-Bioinformatics Database Queries
+Bioinformatics Database Queries:
 
 Query Functions:
 1. **query_uniprot(uniprot_id)**:
@@ -55,7 +55,7 @@ Example:
 enriched_go = enrich_go_annotations_with_names(go_data)
 print(enriched_go)
 
-Protein Language Model Generation
+Protein Language Model Generation:
 
 6. **generate_with_protein_model(prompt, max_length=128)**
 Description:
