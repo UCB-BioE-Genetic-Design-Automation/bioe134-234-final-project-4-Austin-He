@@ -1,1 +1,4 @@
-pytest
+requests==2.31.0
+transformers==4.33.3
+torch>=2.0.0
+pytest==7.4.2
