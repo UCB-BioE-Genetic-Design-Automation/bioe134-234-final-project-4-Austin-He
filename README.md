@@ -20,35 +20,35 @@ For the BioE 134 final project, the core functionality developed includes the re
 Bioinformatics Database Queries
 
 Query Functions:
-**query_uniprot(uniprot_id)**:
+1. **query_uniprot(uniprot_id)**:
 Queries the UniProt REST API for detailed protein information by UniProt ID.
 
 Example:
 data = query_uniprot("P69905")
 print(data)
 
-**query_alphafold(uniprot_id)**:
+2. **query_alphafold(uniprot_id)**:
 Retrieves AlphaFold predicted structure information for a given UniProt ID.
 
 Example:
 structure = query_alphafold("P69905")
 print(structure)
 
-**query_interpro_by_uniprot(uniprot_id)**:
+3. **query_interpro_by_uniprot(uniprot_id)**:
 Fetches protein domain and family annotations from InterPro based on a UniProt ID.
 
 Example:
 interpro_data = query_interpro_by_uniprot("P69905")
 print(interpro_data)
 
-**query_go_annotations_uniprot(uniprot_id)**:
+4. **query_go_annotations_uniprot(uniprot_id)**:
 Retrieves GO annotations (molecular function, biological process, cellular component) associated with a given UniProt ID from QuickGO.
 
 Example:
 go_data = query_go_annotations_uniprot("P69905")
 print(go_data)
 
-**enrich_go_annotations_with_names(annotations)**:
+5. **enrich_go_annotations_with_names(annotations)**:
 Enhances GO annotations by fetching the human-readable GO term names using the QuickGO ontology service.
 
 Example:
@@ -56,7 +56,7 @@ enriched_go = enrich_go_annotations_with_names(go_data)
 print(enriched_go)
 
 Protein Language Model Generation
-**generate_with_protein_model(prompt, max_length=128)**
+6. **generate_with_protein_model(prompt, max_length=128)**
 Description:
 Uses a fine-tuned language model ("basil2115/llama2-qlora-proteins") to generate text related to protein science. This can be helpful for summarizing information, explaining biological concepts, or generating hypotheses.
 
