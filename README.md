@@ -56,6 +56,7 @@ enriched_go = enrich_go_annotations_with_names(go_data)
 print(enriched_go)
 
 Protein Language Model Generation
+
 6. **generate_with_protein_model(prompt, max_length=128)**
 Description:
 Uses a fine-tuned language model ("basil2115/llama2-qlora-proteins") to generate text related to protein science. This can be helpful for summarizing information, explaining biological concepts, or generating hypotheses.
