@@ -96,13 +96,7 @@ Import and Use Functions:
 from bio_functions import query_uniprot, query_alphafold, query_interpro_by_uniprot, query_go_annotations_uniprot, enrich_go_annotations_with_names
 from bio_functions import generate_with_protein_model
 
-# Querying databases
-uni_data = query_uniprot("P69905")
-
-# Model generation
-response = generate_with_protein_model("Explain the fuctions of alpha hemoglobin y")
-
-Conclusion
+# Conclusion
 This project delivers a set of tools for DNA sequence manipulation (reverse_complement, translate), integrates with major bioinformatics resources (UniProt, AlphaFold, InterPro, GO), and utilizes a fine-tuned protein-related language model for advanced text generation. All functionalities are tested and documented, ensuring a robust and versatile toolkit for bioinformatics analysis pipelines.
 
 Additional Resources:
