@@ -70,7 +70,6 @@ A string containing the generated response from the model.
 
 Example:
 response = generate_with_protein_model("Tell me about Human Hemoglobin subunit alpha")
-print(response)
 
 # Error Handling:
 Query Functions
@@ -99,17 +98,21 @@ from bio_functions import generate_with_protein_model
 
 # Querying databases
 uni_data = query_uniprot("P69905")
-print(uni_data)
 
 # Model generation
 response = generate_with_protein_model("Explain the fuctions of alpha hemoglobin y")
-print(response)
+
 Conclusion
 This project delivers a set of tools for DNA sequence manipulation (reverse_complement, translate), integrates with major bioinformatics resources (UniProt, AlphaFold, InterPro, GO), and utilizes a fine-tuned protein-related language model for advanced text generation. All functionalities are tested and documented, ensuring a robust and versatile toolkit for bioinformatics analysis pipelines.
 
-Additional Resources
+Additional Resources:
+
 UniProt: https://www.uniprot.org
+
 AlphaFold: https://alphafold.ebi.ac.uk
+
 InterPro: https://www.ebi.ac.uk/interpro/
+
 QuickGO: https://www.ebi.ac.uk/QuickGO/
+
 Hugging Face Model: basil2115/llama2-qlora-proteins (llama2 I finetuned on protein sequences using qlora)
